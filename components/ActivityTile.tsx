@@ -1,4 +1,14 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 export default function ActivityTile() {
+  const [pattern, setPattern] = useState<boolean[]>([]);
+
+  useEffect(() => {
+    setPattern(Array.from({ length: 28 }).map(() => Math.random() > 0.5));
+  }, []);
+
   return (
     <div className="bento-tile p-5 flex flex-col h-full">
       <h3 className="text-sm font-semibold mb-4" style={{ color: "var(--text-primary)" }}>Activity Heatmap</h3>
@@ -7,9 +17,9 @@ export default function ActivityTile() {
           {Array.from({ length: 28 }).map((_, i) => (
             <div 
               key={i} 
-              className="w-4 h-4 rounded-sm"
+              className="w-4 h-4 rounded-sm transition-colors duration-500"
               style={{ 
-                background: Math.random() > 0.5 ? "rgba(99,102,241,0.6)" : "rgba(255,255,255,0.05)" 
+                background: pattern[i] ? "rgba(99,102,241,0.6)" : "rgba(255,255,255,0.05)" 
               }} 
             />
           ))}
